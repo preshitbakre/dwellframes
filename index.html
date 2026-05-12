@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DwellFrames | Structural Engineering & Steel Detailing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #083C45;
+            --primary-light: #0d5a67;
+            --primary-dark: #052830;
+            --secondary: #EA651A;
+            --secondary-light: #f07d3d;
+            --dark: #020f12;
+            --text: #2d3e42;
+            --text-light: #5a6e73;
+            --bg: #ffffff;
+            --bg-alt: #f0f4f5;
+            --border: #d4dde0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 90px; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; line-height: 1.7; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-alt); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        /* LOADER */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary); z-index: 9999; display: flex;
+            align-items: center; justify-content: center; flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-logo { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: white; letter-spacing: 2px; }
+        .loader-logo span { display: inline-block; opacity: 0; animation: loaderReveal 0.6s ease forwards; }
+        .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 2rem; overflow: hidden; }
+        .loader-bar-inner { width: 0%; height: 100%; background: var(--secondary); border-radius: 3px; animation: loaderFill 1.5s ease forwards 0.5s; }
+        .loader-tagline { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 1rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 500; }
+        @keyframes loaderReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes loaderFill { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* CURSOR */
+        .cursor-dot, .cursor-ring { display: none; }
+
+        /* NAV */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.2rem 0; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); background: transparent; }
+        .navbar.scrolled { background: rgba(255,255,255,0.92); backdrop-filter: blur(30px); box-shadow: 0 4px 40px rgba(8,60,69,0.1); padding: 0.7rem 0; }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .logo-img { height: 52px; width: auto; display: block; transition: transform 0.4s ease; }
+        .logo:hover .logo-img { transform: scale(1.04); }
+        .navbar.scrolled .logo-img { height: 44px; }
+        .logo-icon { width: 46px; height: 46px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; font-weight: 800; font-family: 'Playfair Display', serif; box-shadow: 0 4px 20px rgba(8,60,69,0.35); transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .logo-icon::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(234,101,26,0.2) 0%, transparent 70%); animation: rotate 15s linear infinite; }
+        .logo:hover .logo-icon { transform: rotate(360deg) scale(1.1); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+        .logo-sub { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; color: var(--text-light); font-weight: 500; letter-spacing: 3px; text-transform: uppercase; margin-top: -2px; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: rgba(255,255,255,0.85); font-weight: 500; font-size: 0.85rem; position: relative; padding: 0.5rem 0; transition: color 0.3s; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--secondary); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); transform: translateX(-50%); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: white; }
+        .navbar.scrolled .nav-links a { color: var(--text); }
+        .navbar.scrolled .nav-links a:hover { color: var(--primary); }
+        .nav-cta { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); color: white !important; padding: 0.7rem 1.8rem !important; border-radius: 8px; font-weight: 600 !important; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: 0 4px 20px rgba(234,101,26,0.3); position: relative; overflow: hidden; }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(234,101,26,0.4); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
+
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 50%, var(--primary-light) 100%); }
+        #heroCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .hero-grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; }
+        .hero-content { max-width: 1280px; margin: 0 auto; padding: 8rem 2rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); padding: 0.6rem 1.4rem; border-radius: 50px; color: var(--secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem; animation: fadeInUp 0.8s ease; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+        .hero-badge i { color: var(--secondary); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.2rem; font-weight: 700; color: white; line-height: 1.05; margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease 0.1s both; }
+        .hero h1 span { color: var(--secondary); position: relative; display: inline-block; }
+        .hero h1 span::after { content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 12px; background: var(--secondary); opacity: 0.2; z-index: -1; animation: underlineGrow 1s ease 1.2s both; }
+        .hero p { font-size: 1.1rem; color: rgba(255,255,255,0.65); max-width: 520px; margin-bottom: 2.5rem; animation: fadeInUp 0.8s ease 0.2s both; font-family: 'Montserrat', sans-serif; font-weight: 400; }
+        .hero-buttons { display: flex; gap: 1rem; animation: fadeInUp 0.8s ease 0.3s both; }
+        .btn-primary { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); color: white; padding: 1rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 25px rgba(234,101,26,0.35); position: relative; overflow: hidden; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
+        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s ease; }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(234,101,26,0.5); }
+        .btn-secondary { background: transparent; color: white; padding: 1rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 2px solid rgba(255,255,255,0.25); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Montserrat', sans-serif; position: relative; overflow: hidden; }
+        .btn-secondary::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 100%; background: rgba(255,255,255,0.08); transition: width 0.4s ease; z-index: -1; }
+        .btn-secondary:hover::before { width: 100%; }
+        .btn-secondary:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-3px); }
+        .hero-visual { position: relative; animation: fadeInRight 1s ease 0.4s both; }
+        .hero-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.3); }
+        .hero-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(234,101,26,0.08) 0%, transparent 60%); animation: rotate 25s linear infinite; }
+        .hero-card-content { position: relative; z-index: 1; }
+        .hero-card h3 { color: white; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600; font-family: 'Playfair Display', serif; }
+        .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .stat-item { text-align: center; padding: 1.2rem; background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease; }
+        .stat-item:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); border-color: rgba(234,101,26,0.3); }
+        .stat-number { font-size: 2.2rem; font-weight: 800; color: var(--secondary); display: block; font-family: 'Playfair Display', serif; }
+        .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.25rem; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+        .floating-elements { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; }
+        .float-shape { position: absolute; border: 1.5px solid rgba(234,101,26,0.15); border-radius: 50%; animation: float 8s ease-in-out infinite; }
+        .float-shape:nth-child(1) { width: 400px; height: 400px; top: 5%; right: -10%; animation-delay: 0s; }
+        .float-shape:nth-child(2) { width: 250px; height: 250px; bottom: 15%; left: -8%; animation-delay: 2s; }
+        .float-shape:nth-child(3) { width: 180px; height: 180px; top: 40%; right: 25%; animation-delay: 4s; }
+
+        /* SECTIONS */
+        .section { padding: 6rem 0; position: relative; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+        .section-label { display: inline-flex; align-items: center; gap: 0.75rem; color: var(--secondary); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1.2rem; font-family: 'Montserrat', sans-serif; }
+        .section-label::before, .section-label::after { content: ''; width: 30px; height: 2px; background: var(--secondary); }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--primary); line-height: 1.15; margin-bottom: 1rem; }
+        .section-desc { color: var(--text-light); font-size: 1.05rem; font-family: 'Montserrat', sans-serif; font-weight: 400; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+        /* SERVICES */
+        .services { background: var(--bg-alt); position: relative; overflow: hidden; }
+        .services::before { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(234,101,26,0.04) 0%, transparent 70%); pointer-events: none; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .service-card { background: white; border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); border: 1px solid var(--border); cursor: pointer; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .service-card::after { content: ''; position: absolute; bottom: 0; right: 0; width: 150px; height: 150px; background: radial-gradient(circle, rgba(234,101,26,0.06) 0%, transparent 70%); opacity: 0; transition: opacity 0.5s ease; }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover::after { opacity: 1; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 30px 70px rgba(8,60,69,0.12); border-color: transparent; }
+        .service-icon { width: 68px; height: 68px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin-bottom: 1.5rem; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden; }
+        .service-icon::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(234,101,26,0.2) 0%, transparent 70%); opacity: 0; transition: opacity 0.4s ease; }
+        .service-card:hover .service-icon { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); transform: scale(1.1) rotate(8deg); }
+        .service-card:hover .service-icon::before { opacity: 1; }
+        .service-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-family: 'Playfair Display', serif; }
+        .service-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; font-family: 'Montserrat', sans-serif; }
+        .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+        .service-tag { background: var(--bg-alt); color: var(--primary); padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; transition: all 0.3s ease; }
+        .service-card:hover .service-tag { background: rgba(234,101,26,0.1); color: var(--secondary); }
+
+        /* ABOUT */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+        .about-images { position: relative; }
+        .about-img-main { width: 100%; height: 500px; object-fit: cover; border-radius: 24px; box-shadow: 0 25px 70px rgba(8,60,69,0.2); transition: transform 0.6s ease; }
+        .about-images:hover .about-img-main { transform: scale(1.02); }
+        .about-img-float { position: absolute; width: 280px; height: 200px; object-fit: cover; border-radius: 18px; box-shadow: 0 20px 50px rgba(8,60,69,0.25); border: 4px solid white; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .about-img-float:nth-child(2) { bottom: -30px; right: -20px; animation: float 6s ease-in-out infinite; }
+        .about-img-float:nth-child(3) { top: 30px; left: -30px; width: 200px; height: 150px; animation: float 6s ease-in-out infinite 2s; }
+        .about-img-float:hover { transform: scale(1.05); z-index: 10; }
+        .about-content h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; line-height: 1.15; }
+        .about-content p { color: var(--text-light); margin-bottom: 1.5rem; font-size: 1rem; font-family: 'Montserrat', sans-serif; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+        .about-feature { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; border-radius: 16px; transition: all 0.4s ease; }
+        .about-feature:hover { background: var(--bg-alt); transform: translateX(5px); }
+        .about-feature i { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; transition: all 0.4s ease; }
+        .about-feature:hover i { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); transform: rotate(10deg); }
+        .about-feature h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; font-family: 'Playfair Display', serif; }
+        .about-feature span { font-size: 0.85rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+
+        /* STATS */
+        .stats-bar { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); padding: 5rem 0; position: relative; overflow: hidden; }
+        .stats-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; z-index: 1; }
+        .stat-box { text-align: center; color: white; padding: 1.5rem; border-radius: 20px; transition: all 0.4s ease; }
+        .stat-box:hover { background: rgba(255,255,255,0.05); transform: translateY(-5px); }
+        .stat-box .number { font-size: 3.5rem; font-weight: 800; color: var(--secondary); display: block; line-height: 1; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
+        .stat-box .label { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 500; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+
+        /* PROJECTS */
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .project-card { position: relative; border-radius: 24px; overflow: hidden; height: 400px; cursor: pointer; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
+        .project-card:hover img { transform: scale(1.15); }
+        .project-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem; background: linear-gradient(to top, rgba(5,15,18,0.95) 0%, rgba(5,15,18,0.4) 50%, transparent 100%); transform: translateY(80px); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .project-card:hover .project-overlay { transform: translateY(0); }
+        .project-tag { display: inline-block; background: var(--secondary); color: white; padding: 0.35rem 1.2rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-bottom: 0.75rem; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; transform: translateY(20px); opacity: 0; transition: all 0.4s ease 0.1s; }
+        .project-card:hover .project-tag { transform: translateY(0); opacity: 1; }
+        .project-overlay h3 { color: white; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; transform: translateY(20px); opacity: 0; transition: all 0.4s ease 0.15s; }
+        .project-card:hover .project-overlay h3 { transform: translateY(0); opacity: 1; }
+        .project-overlay p { color: rgba(255,255,255,0.7); font-size: 0.9rem; font-family: 'Montserrat', sans-serif; transform: translateY(20px); opacity: 0; transition: all 0.4s ease 0.2s; }
+        .project-card:hover .project-overlay p { transform: translateY(0); opacity: 1; }
+        .project-shine { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transition: left 0.6s ease; pointer-events: none; }
+        .project-card:hover .project-shine { left: 150%; }
+
+        /* SOFTWARE */
+        .software { background: var(--bg-alt); position: relative; overflow: hidden; }
+        .software::after { content: ''; position: absolute; bottom: -150px; left: -150px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(234,101,26,0.04) 0%, transparent 70%); pointer-events: none; }
+        .software-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .software-card { background: white; border-radius: 20px; padding: 2.2rem; text-align: center; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .software-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(234,101,26,0.03) 0%, transparent 100%); opacity: 0; transition: opacity 0.4s ease; }
+        .software-card:hover::before { opacity: 1; }
+        .software-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(8,60,69,0.1); border-color: rgba(234,101,26,0.2); }
+        .software-logo { width: 80px; height: 80px; margin: 0 auto 1.5rem; background: var(--bg-alt); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary); transition: all 0.4s ease; position: relative; z-index: 1; }
+        .software-card:hover .software-logo { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; transform: scale(1.1) rotate(-5deg); }
+        .software-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; position: relative; z-index: 1; }
+        .software-card p { font-size: 0.85rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; position: relative; z-index: 1; }
+
+        /* TESTIMONIALS */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .testimonial-card { background: white; border-radius: 24px; padding: 2.5rem; border: 1px solid var(--border); position: relative; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); overflow: hidden; }
+        .testimonial-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--secondary), var(--secondary-light)); transform: scaleY(0); transform-origin: top; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+        .testimonial-card:hover::before { transform: scaleY(1); }
+        .testimonial-card:hover { box-shadow: 0 25px 60px rgba(8,60,69,0.1); transform: translateY(-8px); border-color: transparent; }
+        .testimonial-quote { position: absolute; top: 1.5rem; right: 2rem; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--secondary); opacity: 0.15; line-height: 1; transition: all 0.4s ease; }
+        .testimonial-card:hover .testimonial-quote { opacity: 0.3; transform: scale(1.1); }
+        .testimonial-stars { color: var(--secondary); margin-bottom: 1.2rem; font-size: 0.85rem; }
+        .testimonial-text { color: var(--text); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; font-family: 'Montserrat', sans-serif; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; font-family: 'Playfair Display', serif; transition: all 0.4s ease; }
+        .testimonial-card:hover .testimonial-avatar { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); transform: scale(1.1); }
+        .testimonial-info h4 { font-size: 1rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .testimonial-info span { font-size: 0.8rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); padding: 7rem 0; position: relative; overflow: hidden; }
+        .cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .cta-content { text-align: center; position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 700; color: white; margin-bottom: 1.5rem; line-height: 1.15; }
+        .cta p { color: rgba(255,255,255,0.65); font-size: 1.15rem; margin-bottom: 2.5rem; font-family: 'Montserrat', sans-serif; }
+        .cta .btn-primary { font-size: 1rem; padding: 1.2rem 3rem; }
+
+        /* CONTACT */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; line-height: 1.15; }
+        .contact-info p { color: var(--text-light); margin-bottom: 2rem; font-size: 1rem; font-family: 'Montserrat', sans-serif; }
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-item { display: flex; align-items: flex-start; gap: 1.2rem; padding: 1rem; border-radius: 16px; transition: all 0.4s ease; }
+        .contact-item:hover { background: var(--bg-alt); transform: translateX(5px); }
+        .contact-item i { width: 52px; height: 52px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; transition: all 0.4s ease; }
+        .contact-item:hover i { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); transform: rotate(10deg); }
+        .contact-item h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; font-family: 'Playfair Display', serif; }
+        .contact-item span { font-size: 0.9rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+        .contact-form { background: white; border-radius: 24px; padding: 2.5rem; box-shadow: 0 15px 50px rgba(8,60,69,0.08); border: 1px solid var(--border); transition: all 0.4s ease; }
+        .contact-form:hover { box-shadow: 0 20px 60px rgba(8,60,69,0.12); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 1rem 1.2rem; border: 2px solid var(--border); border-radius: 14px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); background: var(--bg-alt); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--secondary); background: white; box-shadow: 0 0 0 5px rgba(234,101,26,0.1); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 1.2rem; border: none; border-radius: 14px; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: flex; align-items: center; justify-content: center; gap: 0.5rem; position: relative; overflow: hidden; }
+        .submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.6s ease; }
+        .submit-btn:hover::before { left: 100%; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(8,60,69,0.3); }
+
+        /* FOOTER */
+        .footer { background: var(--dark); color: white; padding: 5rem 0 2rem; position: relative; overflow: hidden; }
+        .footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary)); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-brand .logo-text { color: white; margin-bottom: 1rem; }
+        .footer-logo-img { height: 56px; width: auto; display: block; filter: brightness(0) invert(1); }
+        .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.8; margin-bottom: 1.5rem; font-family: 'Montserrat', sans-serif; }
+        .footer-social { display: flex; gap: 1rem; }
+        .footer-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.06); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden; }
+        .footer-social a::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 100%; background: var(--secondary); transition: width 0.4s ease; z-index: 0; }
+        .footer-social a:hover::before { width: 100%; }
+        .footer-social a:hover { color: white; transform: translateY(-4px); }
+        .footer-social a i { position: relative; z-index: 1; }
+        .footer-column h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; color: white; font-family: 'Playfair Display', serif; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 0.75rem; }
+        .footer-column ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; font-family: 'Montserrat', sans-serif; }
+        .footer-column ul li a:hover { color: var(--secondary); padding-left: 8px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-family: 'Montserrat', sans-serif; }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes underlineGrow { from { width: 0; } to { width: 100%; } }
+
+        /* SCROLL REVEAL */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.23, 1, 0.32, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* MARQUEE */
+        .marquee-container { overflow: hidden; white-space: nowrap; padding: 2rem 0; background: var(--primary); position: relative; }
+        .marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
+        .marquee-item { display: inline-block; padding: 0 3rem; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: rgba(255,255,255,0.3); font-weight: 600; }
+        .marquee-item i { color: var(--secondary); margin-right: 0.5rem; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 3rem; padding-top: 7rem; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { margin: 0 auto 2rem; max-width: 90%; }
+            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .hero-visual { max-width: 500px; margin: 0 auto; width: 100%; }
+            .hero-card { padding: 1.8rem; }
+            .services-grid, .projects-grid, .testimonials-grid, .software-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; flex-direction: column; padding: 2rem; gap: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 2.4rem; line-height: 1.15; }
+            .hero p { font-size: 1rem; padding: 0 0.5rem; }
+            .hero-buttons { flex-direction: column; align-items: center; gap: 0.75rem; }
+            .btn-primary, .btn-secondary { width: 90%; max-width: 280px; justify-content: center; }
+            .hero-visual { display: none; }
+            .section-title { font-size: 2.2rem; }
+            .services-grid, .projects-grid, .testimonials-grid, .software-grid, .stats-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .cta h2 { font-size: 2.2rem; }
+            .cursor-dot, .cursor-ring { display: none; }
+            .logo-img, .navbar.scrolled .logo-img { height: 40px; }
+            .footer-logo-img { height: 48px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">
+            <span style="animation-delay:0s">D</span><span style="animation-delay:0.08s">w</span><span style="animation-delay:0.16s">e</span><span style="animation-delay:0.24s">l</span><span style="animation-delay:0.32s">l</span><span style="animation-delay:0.40s">F</span><span style="animation-delay:0.48s">r</span><span style="animation-delay:0.56s">a</span><span style="animation-delay:0.64s">m</span><span style="animation-delay:0.72s">e</span><span style="animation-delay:0.80s">s</span>
+        </div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+        <div class="loader-tagline">Engineering Services</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="Logo/dwellframes-logo.png" alt="DwellFrames Engineering Services" class="logo-img">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-grid"></div>
+        <div class="floating-elements">
+            <div class="float-shape"></div>
+            <div class="float-shape"></div>
+            <div class="float-shape"></div>
+        </div>
+        <div class="hero-content">
+            <div>
+                <div class="hero-badge">
+                    <i class="fas fa-award"></i>
+                    ISO 9001:2015 Certified Engineering Firm
+                </div>
+                <h1>Building Tomorrow's<br><span>Infrastructure Today</span></h1>
+                <p>Premium structural engineering, steel detailing, and BIM services for industrial, commercial, and residential projects worldwide. Precision engineering meets innovative design.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Start Your Project
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-content">
+                        <h3><i class="fas fa-chart-line" style="color: var(--secondary); margin-right: 0.5rem;"></i>Company at a Glance</h3>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="500">0</span>
+                                <span class="stat-label">Projects Completed</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="15">0</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="200">0</span>
+                                <span class="stat-label">Expert Engineers</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="12">0</span>
+                                <span class="stat-label">Countries Served</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <span class="marquee-item"><i class="fas fa-building"></i>Structural Engineering</span>
+            <span class="marquee-item"><i class="fas fa-cubes"></i>Steel Detailing</span>
+            <span class="marquee-item"><i class="fas fa-project-diagram"></i>BIM Services</span>
+            <span class="marquee-item"><i class="fas fa-link"></i>Connection Design</span>
+            <span class="marquee-item"><i class="fas fa-warehouse"></i>Pre-Engineered Buildings</span>
+            <span class="marquee-item"><i class="fas fa-th"></i>Rebar Detailing</span>
+            <span class="marquee-item"><i class="fas fa-building"></i>Structural Engineering</span>
+            <span class="marquee-item"><i class="fas fa-cubes"></i>Steel Detailing</span>
+            <span class="marquee-item"><i class="fas fa-project-diagram"></i>BIM Services</span>
+            <span class="marquee-item"><i class="fas fa-link"></i>Connection Design</span>
+            <span class="marquee-item"><i class="fas fa-warehouse"></i>Pre-Engineered Buildings</span>
+            <span class="marquee-item"><i class="fas fa-th"></i>Rebar Detailing</span>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Our Services</div>
+                <h2 class="section-title">Comprehensive Engineering Solutions</h2>
+                <p class="section-desc">From concept to completion, we deliver end-to-end structural engineering services with precision, safety, and innovation at every stage.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon"><i class="fas fa-drafting-compass"></i></div>
+                    <h3>Structural Engineering</h3>
+                    <p>Complete structural analysis and design for buildings, bridges, and industrial facilities. We ensure safety, compliance, and cost-efficiency in every calculation.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Analysis</span>
+                        <span class="service-tag">Design</span>
+                        <span class="service-tag">Compliance</span>
+                    </div>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon"><i class="fas fa-building"></i></div>
+                    <h3>Steel Detailing</h3>
+                    <p>Expert steel fabrication drawings with precise connection details, shop drawings, and erection plans using industry-leading software platforms.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Shop Drawings</span>
+                        <span class="service-tag">Connections</span>
+                        <span class="service-tag">Erection Plans</span>
+                    </div>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon"><i class="fas fa-cube"></i></div>
+                    <h3>BIM Services</h3>
+                    <p>Advanced Building Information Modeling for clash detection, 3D visualization, and coordinated construction documentation across all disciplines.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">3D Modeling</span>
+                        <span class="service-tag">Clash Detection</span>
+                        <span class="service-tag">Coordination</span>
+                    </div>
+                </div>
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon"><i class="fas fa-link"></i></div>
+                    <h3>Connection Design</h3>
+                    <p>Specialized structural connection design for steel frameworks, ensuring load transfer efficiency and constructability in complex geometries.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Moment Connections</span>
+                        <span class="service-tag">Shear Connections</span>
+                        <span class="service-tag">Bracing</span>
+                    </div>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+                    <h3>Pre-Engineered Buildings</h3>
+                    <p>Design and detailing of pre-engineered metal buildings (PEMB) for warehouses, factories, and commercial spaces with rapid deployment.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">PEMB</span>
+                        <span class="service-tag">Warehouses</span>
+                        <span class="service-tag">Factories</span>
+                    </div>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon"><i class="fas fa-th"></i></div>
+                    <h3>Rebar Detailing</h3>
+                    <p>Accurate rebar placement drawings, bar bending schedules, and 3D reinforcement modeling for concrete structures of all scales.</p>
+                    <div class="service-tags">
+                        <span class="service-tag">Placement Drawings</span>
+                        <span class="service-tag">BBS</span>
+                        <span class="service-tag">3D Rebar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-images reveal">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=500&fit=crop" alt="Construction Site" class="about-img-main">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop" alt="Steel Structure" class="about-img-float">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&h=200&fit=crop" alt="Engineering Team" class="about-img-float">
+                </div>
+                <div class="about-content reveal">
+                    <div class="section-label">About Us</div>
+                    <h2>Engineering Excellence Since 2009</h2>
+                    <p>DwellFrames is a leading structural engineering consultancy delivering world-class solutions across industrial, commercial, and residential sectors. Our commitment to precision, safety, and innovation has made us a trusted partner for clients across 12 countries.</p>
+                    <p>We combine deep technical expertise with cutting-edge technology to transform complex engineering challenges into elegant, buildable solutions. Every project benefits from our rigorous quality assurance and OSHA-compliant safety standards.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <div><h4>OSHA Compliant</h4><span>Strict safety protocols</span></div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-clock"></i>
+                            <div><h4>On-Time Delivery</h4><span>99.2% deadline success</span></div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-users"></i>
+                            <div><h4>Expert Team</h4><span>200+ certified engineers</span></div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-globe"></i>
+                            <div><h4>Global Reach</h4><span>Projects in 12 countries</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-box reveal"><span class="number" data-count="500">0</span><span class="label">Projects Delivered</span></div>
+                <div class="stat-box reveal reveal-delay-1"><span class="number" data-count="15">0</span><span class="label">Years of Excellence</span></div>
+                <div class="stat-box reveal reveal-delay-2"><span class="number" data-count="200">0</span><span class="label">Engineering Experts</span></div>
+                <div class="stat-box reveal reveal-delay-3"><span class="number" data-count="12">0</span><span class="label">Countries Served</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Portfolio</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">Explore our portfolio of landmark structures that demonstrate our technical capabilities and engineering innovation.</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop" alt="Commercial Complex">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Commercial</span>
+                        <h3>Metro Business Park</h3>
+                        <p>12-story steel frame commercial complex with 450,000 sq ft</p>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop" alt="Industrial Facility">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Industrial</span>
+                        <h3>Apex Manufacturing Plant</h3>
+                        <p>Pre-engineered metal building spanning 200,000 sq ft</p>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop" alt="Bridge Structure">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Infrastructure</span>
+                        <h3>Riverfront Pedestrian Bridge</h3>
+                        <p>180m span steel truss bridge with architectural lighting</p>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&h=400&fit=crop" alt="Residential Tower">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Residential</span>
+                        <h3>Skyline Residences</h3>
+                        <p>28-story residential tower with composite steel-concrete design</p>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop" alt="Warehouse">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Logistics</span>
+                        <h3>Global Distribution Center</h3>
+                        <p>500,000 sq ft automated warehouse with mezzanine floors</p>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&h=400&fit=crop" alt="Stadium">
+                    <div class="project-shine"></div>
+                    <div class="project-overlay">
+                        <span class="project-tag">Sports</span>
+                        <h3>City Arena Stadium</h3>
+                        <p>45,000 capacity stadium with long-span roof structure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Testimonials</div>
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-desc">Trusted by leading construction firms and developers worldwide for our commitment to quality and precision.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"DwellFrames delivered our steel detailing package with exceptional precision. Their Tekla models were flawless, and the fabrication drawings saved us weeks on site. Truly world-class engineering partners."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RJ</div>
+                        <div class="testimonial-info"><h4>Robert Johnson</h4><span>Project Director, Apex Construction Group</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The BIM coordination services from DwellFrames were outstanding. Their clash detection reports identified issues we would have never caught, saving us significant rework costs. Highly recommended for complex projects."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SP</div>
+                        <div class="testimonial-info"><h4>Sarah Patel</h4><span>BIM Manager, Metro Developments Ltd</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-3">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"We've partnered with DwellFrames on over 30 projects across three continents. Their connection design expertise and attention to constructability details consistently exceed our expectations."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MK</div>
+                        <div class="testimonial-info"><h4>Michael Kim</h4><span>Chief Engineer, Global Steel Fabricators</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Build Something Extraordinary?</h2>
+                <p>Let's discuss your next project. Our team of 200+ engineers is ready to transform your vision into precision-engineered reality.</p>
+                <a href="#contact" class="btn-primary" style="font-size:1.05rem;padding:1.2rem 3rem;">
+                    <i class="fas fa-envelope"></i>
+                    Get Your Free Consultation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <div class="section-label">Contact Us</div>
+                    <h2>Let's Start Your Project</h2>
+                    <p>Reach out to discuss your structural engineering needs. Our team will respond within 24 hours with a tailored solution proposal.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div><h4>Headquarters</h4><span>DwellFrames Tower, 42 Engineering Drive<br>Business District, NY 10001</span></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div><h4>Phone</h4><span>+1 (555) 234-5678</span></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div><h4>Email</h4><span>projects@dwellframes.com</span></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div><h4>Working Hours</h4><span>Mon - Sat: 8:00 AM - 6:00 PM EST</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form reveal">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group"><label>First Name</label><input type="text" id="firstName" placeholder="John" required></div>
+                            <div class="form-group"><label>Last Name</label><input type="text" id="lastName" placeholder="Doe" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="john@company.com" required></div>
+                            <div class="form-group"><label>Phone</label><input type="tel" id="phone" placeholder="+1 (555) 000-0000"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Project Type</label>
+                            <select id="projectType" required>
+                                <option value="">Select a service</option>
+                                <option value="Structural Engineering">Structural Engineering</option>
+                                <option value="Steel Detailing">Steel Detailing</option>
+                                <option value="BIM Services">BIM Services</option>
+                                <option value="Connection Design">Connection Design</option>
+                                <option value="Pre-Engineered Buildings">Pre-Engineered Buildings</option>
+                                <option value="Rebar Detailing">Rebar Detailing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Project Details</label>
+                            <textarea id="projectDetails" placeholder="Tell us about your project requirements, timeline, and any specific needs..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="margin-bottom:1.25rem;">
+                        <img src="Logo/dwellframes-logo.png" alt="DwellFrames Engineering Services" class="footer-logo-img">
+                    </div>
+                    <p>DwellFrames is a premier structural engineering consultancy delivering world-class steel detailing, BIM services, and connection design for projects across 12 countries.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Structural Engineering</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Steel Detailing</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> BIM Services</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Connection Design</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Pre-Engineered Buildings</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Rebar Detailing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> About Us</a></li>
+                        <li><a href="#projects"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Our Projects</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Blog</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> ISO Certification</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2025 DwellFrames. All rights reserved.</p>
+                <p>Designed with precision. Built with passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // LOADER
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // CUSTOM CURSOR
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX - 4 + 'px';
+            cursorDot.style.top = mouseY - 4 + 'px';
+        });
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX - 20 + 'px';
+            cursorRing.style.top = ringY - 20 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.querySelectorAll('a, button, .service-card, .project-card, .software-card, .testimonial-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+        });
+
+        // HERO CANVAS PARTICLES
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(234, 101, 26, ' + this.opacity + ')';
+                ctx.fill();
+            }
+        }
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = 'rgba(234, 101, 26, ' + (0.1 * (1 - dist / 150)) + ')';
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawConnections();
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // NAVBAR SCROLL
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // MOBILE MENU
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // SMOOTH SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // SCROLL REVEAL
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ACTIVE NAV LINK
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) current = section.getAttribute('id');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // COUNTER ANIMATION
+        const counters = document.querySelectorAll('[data-count]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-count'));
+                    let current = 0;
+                    const increment = target / 60;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target + (target >= 100 ? '+' : '');
+                            clearInterval(timer);
+                        } else {
+                            entry.target.textContent = Math.floor(current) + (target >= 100 ? '+' : '');
+                        }
+                    }, 30);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => counterObserver.observe(c));
+
+        // FORM SUBMISSION - open default email client via mailto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const projectType = document.getElementById('projectType').value;
+            const projectDetails = document.getElementById('projectDetails').value.trim();
+
+            const fullName = (firstName + ' ' + lastName).trim();
+            const subject = 'New Project Inquiry - ' + projectType;
+            const bodyLines = [
+                'Name: ' + fullName,
+                'Email: ' + email,
+                'Phone: ' + phone,
+                'Project Type: ' + projectType,
+                '',
+                'Project Details:',
+                projectDetails
+            ];
+            const body = bodyLines.join('\r\n');
+
+            const mailto = 'mailto:info@dwellframes.com'
+                + '?from=' + encodeURIComponent(email)
+                + '&subject=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailto;
+
+            const btn = this.querySelector('.submit-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Opening Email...';
+            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                this.reset();
+            }, 3000);
+        });
+
+        // PARALLAX
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.about-img-float');
+            parallaxElements.forEach((el, i) => {
+                const speed = 0.1 * (i + 1);
+                el.style.transform = 'translateY(' + (scrolled * speed) + 'px)';
+            });
+        });
+    </script>
+</body>
+</html>
