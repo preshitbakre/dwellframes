@@ -71,7 +71,7 @@
         .nav-cta { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); color: white !important; padding: 0.7rem 1.8rem !important; border-radius: 8px; font-weight: 600 !important; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: 0 4px 20px rgba(234,101,26,0.3); position: relative; overflow: hidden; }
         .nav-cta::after { display: none !important; }
         .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(234,101,26,0.4); }
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: white; cursor: pointer; padding: 0.4rem 0.6rem; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: white; cursor: pointer; padding: 0.6rem 0.85rem; min-width: 44px; min-height: 44px; }
         .navbar.scrolled .mobile-menu-btn { color: var(--primary); }
 
         /* HERO */
@@ -98,12 +98,14 @@
         .btn-secondary:hover::before { width: 100%; }
         .btn-secondary:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-3px); }
         .hero-visual { position: relative; animation: fadeInRight 1s ease 0.4s both; }
-        .hero-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.3); }
+        .hero-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.3); transform: scale(0.90); transform-origin: top right; }
         .hero-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(234,101,26,0.08) 0%, transparent 60%); animation: rotate 25s linear infinite; }
         .hero-card-content { position: relative; z-index: 1; }
         .hero-card h3 { color: white; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600; font-family: 'Playfair Display', serif; }
-        .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .stat-item { text-align: center; padding: 1.2rem; background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease; }
+        .hero-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+        .stat-item { text-align: center; padding: 1.2rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease; }
+        .hero-stats .stat-item:nth-child(-n+3) { grid-column: span 2; }
+        .hero-stats .stat-item:nth-child(n+4) { grid-column: span 3; }
         .stat-item:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); border-color: rgba(234,101,26,0.3); }
         .stat-number { font-size: 2.2rem; font-weight: 800; color: var(--secondary); display: block; font-family: 'Playfair Display', serif; }
         .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.25rem; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
@@ -187,38 +189,23 @@
         /* STATS */
         .stats-bar { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); padding: 5rem 0; position: relative; overflow: hidden; }
         .stats-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; z-index: 1; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 240px)); gap: 2rem; position: relative; z-index: 1; justify-content: center; }
         .stat-box { text-align: center; color: white; padding: 1.5rem; border-radius: 20px; transition: all 0.4s ease; }
         .stat-box:hover { background: rgba(255,255,255,0.05); transform: translateY(-5px); }
         .stat-box .number { font-size: 3.5rem; font-weight: 800; color: var(--secondary); display: block; line-height: 1; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
         .stat-box .label { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 500; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
 
         /* PROJECTS */
-        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; position: relative; transition: gap 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
-        .projects-grid.has-expanded > .project-card:not(.expanded) { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
-        .project-card { position: relative; border-radius: 24px; overflow: hidden; height: 400px; cursor: pointer; transition: all 0.55s cubic-bezier(0.23, 1, 0.32, 1); }
-        .project-card.expanded { position: absolute; inset: 0; height: auto; min-height: 100%; z-index: 20; cursor: default; box-shadow: 0 30px 90px rgba(5,15,18,0.45); }
-        .project-card.expanded .project-overlay { opacity: 0; pointer-events: none; }
-        .project-card.expanded .tekla-tile { transform: scale(1); }
-        .project-card.expanded .tekla-tile svg { opacity: 0.18; filter: blur(0.4px); transition: opacity 0.5s ease; }
-        .project-card .project-details { position: absolute; inset: 0; padding: 3rem 3.2rem; display: none; flex-direction: column; justify-content: flex-start; text-align: left; color: white; background: linear-gradient(135deg, rgba(5,15,18,0.78) 0%, rgba(8,60,69,0.72) 60%, rgba(13,90,103,0.55) 100%); overflow-y: auto; }
-        .project-card.expanded .project-details { display: flex; animation: detailsFadeIn 0.55s cubic-bezier(0.23, 1, 0.32, 1) both; }
-        @keyframes detailsFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .project-details-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; }
-        .project-details-title { flex: 1; }
-        .project-details-title .project-tag { display: inline-block; background: var(--secondary); color: white; padding: 0.4rem 1.1rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; margin-bottom: 0.9rem; font-family: 'Montserrat', sans-serif; opacity: 1; transform: none; }
-        .project-details-title h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; line-height: 1.1; margin: 0 0 0.35rem; color: white; }
-        .project-details-title .project-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); font-family: 'Montserrat', sans-serif; }
-        .project-close { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: white; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s ease, transform 0.3s ease; }
-        .project-close:hover { background: var(--secondary); border-color: var(--secondary); transform: rotate(90deg); }
-        .project-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem 2.5rem; margin-top: 0.5rem; }
-        .project-meta { display: flex; flex-direction: column; gap: 0.35rem; font-family: 'Montserrat', sans-serif; }
-        .project-meta .meta-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--secondary); font-weight: 700; }
-        .project-meta .meta-value { font-size: 0.95rem; color: rgba(255,255,255,0.92); line-height: 1.55; }
-        .project-meta .meta-value ul { list-style: none; padding: 0; margin: 0; }
-        .project-meta .meta-value ul li { position: relative; padding-left: 1rem; }
-        .project-meta .meta-value ul li::before { content: '\25B8'; position: absolute; left: 0; color: var(--secondary); }
-        .project-details-foot { margin-top: auto; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,0.12); font-size: 0.78rem; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
+        #projects { background: #0a2e35; color: #F5F1EA; }
+        #projects .section-label { color: var(--secondary); }
+        #projects .section-title { color: #F5F1EA; }
+        #projects .section-desc { color: rgba(245,241,234,0.7); }
+        .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; position: relative; }
+        .project-card { position: relative; border-radius: 24px; overflow: hidden; height: 400px; transition: transform 0.35s ease; }
+        .project-card:hover { transform: translateY(-4px); }
+        .tekla-tile--photo { background: var(--dark); }
+        .tekla-tile--photo::before { display: none; }
+        .tekla-tile--photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
         .project-card:hover img { transform: scale(1.15); }
         /* Tekla-style wireframe tile used in place of stock photos */
@@ -230,11 +217,6 @@
         .tekla-tile svg .dim { stroke: rgba(255,255,255,0.3); stroke-width: 0.8; stroke-dasharray: 4 3; }
         .tekla-tile svg .bolt { fill: rgba(234,101,26,0.85); stroke: none; }
         .project-card:hover .tekla-tile { transform: scale(1.08); }
-        .project-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 2.5rem 1.8rem; background: linear-gradient(to top, rgba(5,15,18,0.95) 0%, rgba(5,15,18,0.55) 60%, transparent 100%); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
-        .project-tag { display: inline-block; background: var(--secondary); color: white; padding: 0.35rem 1.2rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-bottom: 0.75rem; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; opacity: 1; }
-        .project-overlay h3 { color: white; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; opacity: 1; }
-        .project-overlay p { color: rgba(255,255,255,0.75); font-size: 0.9rem; font-family: 'Montserrat', sans-serif; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease 0.05s, margin-top 0.4s ease; margin-top: 0; }
-        .project-card:hover .project-overlay p { max-height: 6rem; opacity: 1; margin-top: 0.4rem; }
         .project-shine { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transition: left 0.6s ease; pointer-events: none; }
         .project-card:hover .project-shine { left: 150%; }
 
@@ -256,6 +238,24 @@
         .software-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; position: relative; z-index: 1; }
         .software-card p { font-size: 0.85rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; position: relative; z-index: 1; }
 
+        /* Standards & Platform Capability */
+        .standards { background: var(--bg-alt); position: relative; overflow: hidden; padding: 6rem 0; }
+        .standards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 980px; margin: 0 auto 2.5rem; }
+        .standard-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 2rem 1.25rem; text-align: center; transition: all 0.4s cubic-bezier(0.23,1,0.32,1); position: relative; overflow: hidden; }
+        .standard-card::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .standard-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(8,60,69,0.1); border-color: rgba(234,101,26,0.25); }
+        .standard-card:hover::after { transform: scaleX(1); }
+        .standard-badge { display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; font-size: 1.4rem; margin-bottom: 1rem; }
+        .standard-card h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 0.35rem; font-weight: 700; }
+        .standard-card p { font-size: 0.78rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
+        .mbs-callout { max-width: 880px; margin: 0 auto; background: linear-gradient(135deg, rgba(8,60,69,0.04) 0%, rgba(234,101,26,0.06) 100%); border: 1px solid rgba(234,101,26,0.2); border-radius: 18px; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.25rem; }
+        .mbs-callout .mbs-icon { flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; background: var(--secondary); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .mbs-callout p { font-family: 'Montserrat', sans-serif; color: var(--primary); font-weight: 600; font-size: 0.95rem; margin: 0; }
+        @media (max-width: 768px) {
+            .standards-grid { grid-template-columns: repeat(2, 1fr); }
+            .mbs-callout { flex-direction: column; text-align: center; }
+        }
+
         /* CTA */
         .cta { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); padding: 7rem 0; position: relative; overflow: hidden; }
         .cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
@@ -274,7 +274,9 @@
         .contact-item i { width: 52px; height: 52px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; transition: all 0.4s ease; }
         .contact-item:hover i { background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); transform: rotate(10deg); }
         .contact-item h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; font-family: 'Playfair Display', serif; }
-        .contact-item span { font-size: 0.9rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+        .contact-item span, .contact-item a { font-size: 0.9rem; color: var(--text-light); font-family: 'Montserrat', sans-serif; }
+        .contact-item a { text-decoration: none; transition: color 0.3s ease; }
+        .contact-item a:hover { color: var(--secondary); }
         .contact-form { background: white; border-radius: 24px; padding: 2.5rem; box-shadow: 0 15px 50px rgba(8,60,69,0.08); border: 1px solid var(--border); transition: all 0.4s ease; }
         .contact-form:hover { box-shadow: 0 20px 60px rgba(8,60,69,0.12); }
         .form-group { margin-bottom: 1.5rem; }
@@ -345,6 +347,8 @@
         @media (max-width: 768px) {
             .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; flex-direction: column; padding: 2rem; gap: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
             .nav-links.active { display: flex; }
+            .nav-links a { color: var(--text); }
+            .nav-links a:hover { color: var(--primary); }
             .mobile-menu-btn { display: block; }
             .hero h1 { font-size: 2.4rem; line-height: 1.15; }
             .hero p { font-size: 1rem; padding: 0 0.5rem; }
@@ -354,8 +358,11 @@
             .section-title { font-size: 2.2rem; }
             .projects-grid, .software-grid, .stats-grid { grid-template-columns: 1fr; }
             .about-pills { justify-content: flex-start; }
+            .about-content { order: 1; }
+            .about-images { order: 2; margin-top: 2rem; }
             .footer-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
+            .form-group input, .form-group textarea, .form-group select { font-size: 16px; }
             .cta h2 { font-size: 2.2rem; }
             .cursor-dot, .cursor-ring { display: none; }
             .logo-img, .navbar.scrolled .logo-img { height: 40px; }
@@ -371,7 +378,7 @@
             <span style="animation-delay:0s">D</span><span style="animation-delay:0.08s">w</span><span style="animation-delay:0.16s">e</span><span style="animation-delay:0.24s">l</span><span style="animation-delay:0.32s">l</span><span style="animation-delay:0.40s">F</span><span style="animation-delay:0.48s">r</span><span style="animation-delay:0.56s">a</span><span style="animation-delay:0.64s">m</span><span style="animation-delay:0.72s">e</span><span style="animation-delay:0.80s">s</span>
         </div>
         <div class="loader-bar"><div class="loader-bar-inner"></div></div>
-        <div class="loader-tagline">Steel Detailing Services</div>
+        <div class="loader-tagline">Engineering Services</div>
     </div>
 
     <!-- Custom Cursor -->
@@ -382,7 +389,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
-                <img src="Logo/dwellframes-logo.png" alt="DwellFrames Steel Detailing" class="logo-img">
+                <img src="assets/dwellframes-logo.png" alt="DwellFrames Steel Detailing" class="logo-img">
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
@@ -477,7 +484,7 @@
                     </a>
                     <a href="#services" class="btn-secondary">
                         <i class="fas fa-play-circle"></i>
-                        View Projects
+                        View Our Services
                     </a>
                 </div>
             </div>
@@ -491,16 +498,20 @@
                                 <span class="stat-label">Projects Delivered</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number" data-count="10" data-suffix="+">0</span>
+                                <span class="stat-number" data-count="15">0</span>
                                 <span class="stat-label">Years Experience</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">0</span>
+                                <span class="stat-label">Error Coordination</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number"><i class="fas fa-clipboard-check"></i></span>
                                 <span class="stat-label">Fabrication-Ready Outputs</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">Error Coordination</span>
+                                <span class="stat-number">10-50</span>
+                                <span class="stat-label">Detailers &amp; Tekla Modelers</span>
                             </div>
                         </div>
                     </div>
@@ -534,9 +545,9 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-images reveal">
-                    <img src="images/about-warehouse.png" alt="Warehouse interior with racked inventory" class="about-img-main">
-                    <img src="images/about-steel-detail.png" alt="Terranova Innovation Hub timber and steel building" class="about-img-float">
-                    <img src="images/about-steel-frame.png" alt="3D structural steel frame model" class="about-img-float">
+                    <img src="assets/about-warehouse.png" alt="Warehouse interior with racked inventory" class="about-img-main">
+                    <img src="assets/about-steel-detail.png" alt="Terranova Innovation Hub timber and steel building" class="about-img-float">
+                    <img src="assets/about-steel-frame.png" alt="3D structural steel frame model" class="about-img-float">
                 </div>
                 <div class="about-content reveal">
                     <div class="section-label">About Us</div>
@@ -576,7 +587,7 @@
             <div class="sp-grid">
 
                 <!-- HERO CARD: PEMB (S.01) -->
-                <div class="pcard s-hero reveal" style="background-image: url('images/pemb-card.png');">
+                <div class="pcard s-hero reveal" style="background-image: url('assets/pemb-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.01 · CORE</div>
@@ -600,7 +611,7 @@
                 </div>
 
                 <!-- TALL: Structural Steel (S.02) -->
-                <div class="pcard s-tall reveal" style="background-image: url('images/structural-steel-card.png');">
+                <div class="pcard s-tall reveal" style="background-image: url('assets/structural-steel-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.02</div>
@@ -623,7 +634,7 @@
                 </div>
 
                 <!-- TALL: Joists & Decking (S.03) -->
-                <div class="pcard s-tall reveal" style="background-image: url('images/steel-joist-card.png');">
+                <div class="pcard s-tall reveal" style="background-image: url('assets/steel-joist-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.03</div>
@@ -646,7 +657,7 @@
                 </div>
 
                 <!-- WIDE: Warehouses & Cold Storage (S.04) -->
-                <div class="pcard s-wide reveal" style="background-image: url('images/warehouse-card.png');">
+                <div class="pcard s-wide reveal" style="background-image: url('assets/warehouse-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.04</div>
@@ -669,7 +680,7 @@
                 </div>
 
                 <!-- WIDE: Storage Buildings (S.05) -->
-                <div class="pcard s-wide reveal" style="background-image: url('images/storage-building-card.png');">
+                <div class="pcard s-wide reveal" style="background-image: url('assets/storage-building-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.05</div>
@@ -692,7 +703,7 @@
                 </div>
 
                 <!-- WIDE: Hybrid Structures (S.06) -->
-                <div class="pcard s-wide reveal" style="background-image: url('images/hybrid-structures-card.png');">
+                <div class="pcard s-wide reveal" style="background-image: url('assets/hybrid-structures-card.png');">
                     <div class="pcard-inner">
                         <div class="pcard-top">
                             <div class="pcard-num">S.06</div>
@@ -714,7 +725,7 @@
                 </div>
 
                 <!-- FULL: Stairs & Ladder Detailing (S.07) -->
-                <div class="pcard s-full reveal" style="background-image: url('images/stairs-ladder-card.png');">
+                <div class="pcard s-full reveal" style="background-image: url('assets/stairs-ladder-card.png');">
                     <div class="pcard-inner" style="flex-direction: row; align-items: flex-end; justify-content: space-between;">
                         <div style="max-width: 520px;">
                             <div class="pcard-tags">
@@ -737,6 +748,92 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- Standards & Platform Capability -->
+    <section class="standards" id="standards">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Compliance & Coverage</div>
+                <h2 class="section-title">Standards & Platform Capability</h2>
+                <p class="section-desc">Every package we deliver is detailed to recognized industry standards — and our teams are equipped to take on MBS output projects end-to-end.</p>
+            </div>
+            <div class="standards-grid">
+                <div class="standard-card reveal reveal-delay-1">
+                    <div class="standard-badge"><i class="fas fa-building"></i></div>
+                    <h4>AISC</h4>
+                    <p>American Institute of Steel Construction</p>
+                </div>
+                <div class="standard-card reveal reveal-delay-2">
+                    <div class="standard-badge"><i class="fas fa-hard-hat"></i></div>
+                    <h4>OSHA</h4>
+                    <p>Occupational Safety & Health Administration</p>
+                </div>
+                <div class="standard-card reveal reveal-delay-3">
+                    <div class="standard-badge"><i class="fas fa-fire"></i></div>
+                    <h4>AWS</h4>
+                    <p>American Welding Society</p>
+                </div>
+                <div class="standard-card reveal reveal-delay-4">
+                    <div class="standard-badge"><i class="fas fa-ruler-combined"></i></div>
+                    <h4>NISD</h4>
+                    <p>National Institute of Steel Detailing</p>
+                </div>
+            </div>
+            <div class="mbs-callout reveal">
+                <div class="mbs-icon"><i class="fas fa-industry"></i></div>
+                <p>Fully equipped to work on MBS output projects — from model conversion to fabrication-ready deliverables.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Portfolio</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">A selection of steel detailing packages — Tekla models, shop drawings, and erection-ready outputs delivered for fabricators across PEMB, structural, storage, and miscellaneous steel.</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal reveal-delay-1">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Apex Manufacturing Plant Tekla model">
+                        <img src="assets/apex-manufacturing.png" alt="Apex Manufacturing Plant Tekla model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
+                <div class="project-card reveal reveal-delay-2">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Logistics Hub Roof System Tekla model">
+                        <img src="assets/logistics-hub.png" alt="Logistics Hub Roof System Tekla model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
+                <div class="project-card reveal reveal-delay-3">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Cold Storage Warehouse Tekla model">
+                        <img src="assets/cold-storage.png" alt="Cold Storage Warehouse Tekla model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
+                <div class="project-card reveal reveal-delay-1">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Metro Business Park Tekla model">
+                        <img src="assets/metro-business-park.png" alt="Metro Business Park Tekla model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
+                <div class="project-card reveal reveal-delay-2">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Skyline Composite Tekla model">
+                        <img src="assets/skyline-composite.png" alt="Skyline Composite Tekla model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
+                <div class="project-card reveal reveal-delay-3">
+                    <div class="tekla-tile tekla-tile--photo" aria-label="Structural steel wireframe model">
+                        <img src="assets/structural-wireframe-model.png" alt="Structural steel wireframe model">
+                    </div>
+                    <div class="project-shine"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -772,412 +869,6 @@
         </div>
     </section>
 
-    <!-- Stats Bar -->
-    <section class="stats-bar">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-box reveal"><span class="number" data-count="500">0</span><span class="label">Projects Delivered</span></div>
-                <div class="stat-box reveal reveal-delay-1"><span class="number" data-count="15">0</span><span class="label">Years in Steel Detailing</span></div>
-                <div class="stat-box reveal reveal-delay-2"><span class="number" data-count="200">0</span><span class="label">Detailers & Tekla Modelers</span></div>
-                <div class="stat-box reveal reveal-delay-3"><span class="number" data-count="12">0</span><span class="label">Countries Served</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-label">Portfolio</div>
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-desc">A selection of steel detailing packages — Tekla models, shop drawings, and erection-ready outputs delivered for fabricators across PEMB, structural, storage, and miscellaneous steel.</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="tekla-tile" aria-label="PEMB erection sequence Tekla model">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Ground line -->
-                            <path class="accent" d="M30,370 L580,370" />
-                            <!-- FRAME 1 (front, fully erected) -->
-                            <path d="M105,370 L105,170" /><path d="M115,370 L115,170" />
-                            <path d="M405,370 L405,170" /><path d="M415,370 L415,170" />
-                            <path d="M105,170 L260,100 L415,170" />
-                            <path d="M115,170 L260,105 L405,170" />
-                            <!-- Frame 1 purlins (mid-rafter dots / orange filled accents) -->
-                            <circle class="bolt" cx="150" cy="151" r="2.5" /><circle class="bolt" cx="195" cy="131" r="2.5" /><circle class="bolt" cx="240" cy="112" r="2.5" />
-                            <circle class="bolt" cx="280" cy="112" r="2.5" /><circle class="bolt" cx="325" cy="131" r="2.5" /><circle class="bolt" cx="370" cy="151" r="2.5" />
-                            <!-- FRAME 2 (mid, cols + rafters only) -->
-                            <path d="M130,355 L130,155" /><path d="M430,355 L430,155" />
-                            <path d="M130,155 L285,85 L430,155" />
-                            <!-- FRAME 3 (back, cols only) -->
-                            <path d="M155,340 L155,140" /><path d="M455,340 L455,140" />
-                            <!-- FRAME 3 rafters (planned, dashed) -->
-                            <path class="dim" d="M155,140 L310,70 L455,140" />
-                            <!-- FRAME 4 (baseplates only, planned) -->
-                            <path class="dim" d="M170,325 L190,325 L190,335 L170,335 Z" />
-                            <path class="dim" d="M470,325 L490,325 L490,335 L470,335 Z" />
-                            <circle class="bolt" cx="175" cy="330" r="1.8" /><circle class="bolt" cx="185" cy="330" r="1.8" />
-                            <circle class="bolt" cx="475" cy="330" r="1.8" /><circle class="bolt" cx="485" cy="330" r="1.8" />
-                            <!-- Iso connectors: eave purlins frames 1->2->3 -->
-                            <path class="accent" d="M105,170 L130,155 L155,140" />
-                            <path class="accent" d="M415,170 L430,155 L455,140" />
-                            <!-- Iso connectors: ridge frame 1->2 -->
-                            <path class="accent" d="M260,100 L285,85" />
-                            <!-- Iso connectors: base purlins frames 1->2->3->4 -->
-                            <path class="accent" d="M105,370 L130,355 L155,340 L180,330" />
-                            <path class="accent" d="M415,370 L430,355 L455,340 L480,330" />
-                            <!-- X-bracing in front sidewall, left bay (between frame 1 and frame 2) -->
-                            <path class="dim" d="M105,370 L130,155" />
-                            <path class="dim" d="M130,355 L105,170" />
-                            <!-- Plan-view inset (top-left) -->
-                            <path d="M30,30 L165,30 L165,80 L30,80 Z" />
-                            <path class="dim" d="M30,30 L30,80" /><path class="dim" d="M75,30 L75,80" /><path class="dim" d="M120,30 L120,80" /><path class="dim" d="M165,30 L165,80" />
-                            <path class="dim" d="M30,30 L165,30" /><path class="dim" d="M30,55 L165,55" /><path class="dim" d="M30,80 L165,80" />
-                            <circle class="bolt" cx="30" cy="30" r="2.5" /><circle class="bolt" cx="75" cy="30" r="2.5" /><circle class="bolt" cx="120" cy="30" r="2.5" /><circle class="bolt" cx="165" cy="30" r="2.5" />
-                            <circle class="bolt" cx="30" cy="80" r="2.5" /><circle class="bolt" cx="75" cy="80" r="2.5" /><circle class="bolt" cx="120" cy="80" r="2.5" /><circle class="bolt" cx="165" cy="80" r="2.5" />
-                            <!-- Top dimension callout (clear span) -->
-                            <path class="dim" d="M105,140 L415,140" />
-                            <path class="dim" d="M105,135 L105,145" /><path class="dim" d="M415,135 L415,145" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">PEMB</span>
-                        <h3>Apex Manufacturing Plant</h3>
-                        <p>Pre-engineered metal building spanning 200,000 sq ft — full Tekla model, anchor bolt plans, and erection drawings</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">PEMB</span>
-                                <h2>Apex Manufacturing Plant</h2>
-                                <div class="project-sub">Pre-engineered metal building &middot; Industrial</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Houston, TX</span></div>
-                            <div class="project-meta"><span class="meta-label">Building Size</span><span class="meta-value">200,000 sq ft &middot; 180 ft clear span</span></div>
-                            <div class="project-meta"><span class="meta-label">Steel Tonnage</span><span class="meta-value">~1,250 tons</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">Tekla Structures &middot; AutoCAD</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Full PEMB detailing &mdash; primary frames, purlins, girts, eave struts, and bracing.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>Tekla model (LOD 400)</li><li>Anchor bolt plans</li><li>Shop drawings</li><li>Erection drawings</li><li>Connection details</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">14 weeks &middot; model to erection</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">180 ft clear span with crane loads; rapid sequential erection plan for four frame lines.</span></div>
-                        </div>
-                        <div class="project-details-foot">S.01 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-                <div class="project-card reveal reveal-delay-2">
-                    <div class="tekla-tile" aria-label="Steel joist and decking system drawing">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Corrugated metal deck strip -->
-                            <path d="M50,60 L80,30 L110,60 L140,30 L170,60 L200,30 L230,60 L260,30 L290,60 L320,30 L350,60 L380,30 L410,60 L440,30 L470,60 L500,30 L530,60 L550,30" />
-                            <!-- Deck base line -->
-                            <path class="accent" d="M50,70 L550,70" />
-                            <!-- Joist top chord (double angle) -->
-                            <path d="M40,140 L560,140" /><path d="M40,148 L560,148" />
-                            <!-- Joist bottom chord (double angle) -->
-                            <path d="M40,232 L560,232" /><path d="M40,224 L560,224" />
-                            <!-- Web zigzag -->
-                            <path d="M40,232 L90,140 L140,232 L190,140 L240,232 L290,140 L340,232 L390,140 L440,232 L490,140 L540,232 L560,148" />
-                            <!-- End bearings -->
-                            <path d="M40,130 L40,242" /><path d="M560,130 L560,242" />
-                            <path d="M30,242 L50,242" /><path d="M550,242 L570,242" />
-                            <!-- Column with joist seat (bottom detail) -->
-                            <path class="accent" d="M120,280 L120,380 L200,380 L200,280" />
-                            <path class="accent" d="M140,280 L140,380" /><path class="accent" d="M180,280 L180,380" />
-                            <path class="accent" d="M110,272 L210,272 L210,280 L110,280 Z" />
-                            <!-- Joist seat angle on bearing plate -->
-                            <path d="M155,250 L165,250 L165,272 L155,272 Z" />
-                            <!-- Anchor bolts -->
-                            <circle class="bolt" cx="130" cy="385" r="2.5" />
-                            <circle class="bolt" cx="190" cy="385" r="2.5" />
-                            <!-- Dimension callout -->
-                            <path class="dim" d="M60,90 L540,90" />
-                            <path class="dim" d="M60,86 L60,94" /><path class="dim" d="M540,86 L540,94" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">Joists & Decking</span>
-                        <h3>Logistics Hub Roof System</h3>
-                        <p>Open-web steel joist and metal deck detailing with full bearing connection packages</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">Joists &amp; Decking</span>
-                                <h2>Logistics Hub Roof System</h2>
-                                <div class="project-sub">Distribution warehouse roof package</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Memphis, TN</span></div>
-                            <div class="project-meta"><span class="meta-label">Building Size</span><span class="meta-value">320,000 sq ft roof</span></div>
-                            <div class="project-meta"><span class="meta-label">Joist Series</span><span class="meta-value">28K LH-Series &middot; 1.5B-22 metal deck</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">SDS2 &middot; AutoCAD</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Joist placement, decking layout, bridging, and bearing connection detailing.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>Joist placement drawings</li><li>Decking layouts</li><li>Bridging plans</li><li>Bearing connection details</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">8 weeks</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">Mixed bay spacing for skylights and coordinated mechanical penetrations.</span></div>
-                        </div>
-                        <div class="project-details-foot">P.02 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-                <div class="project-card reveal reveal-delay-3">
-                    <div class="tekla-tile" aria-label="Cold storage warehouse steel frame elevation">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Ground line -->
-                            <path class="accent" d="M30,370 L580,370" />
-                            <!-- Ground hatching -->
-                            <path class="dim" d="M50,370 L40,385" /><path class="dim" d="M110,370 L100,385" /><path class="dim" d="M170,370 L160,385" /><path class="dim" d="M230,370 L220,385" /><path class="dim" d="M290,370 L280,385" /><path class="dim" d="M350,370 L340,385" /><path class="dim" d="M410,370 L400,385" /><path class="dim" d="M470,370 L460,385" /><path class="dim" d="M530,370 L520,385" />
-                            <!-- Rigid frame outline (cold storage building elevation) -->
-                            <path d="M60,370 L60,130 L300,70 L540,130 L540,370" />
-                            <!-- Insulated wall (inner skin) on both sides -->
-                            <path class="accent" d="M75,360 L75,140 L300,84 L525,140 L525,360" />
-                            <!-- Insulation hatching between outer and inner wall (left) -->
-                            <path class="dim" d="M60,180 L75,180" /><path class="dim" d="M60,220 L75,220" /><path class="dim" d="M60,260 L75,260" /><path class="dim" d="M60,300 L75,300" /><path class="dim" d="M60,340 L75,340" />
-                            <!-- Insulation hatching (right) -->
-                            <path class="dim" d="M525,180 L540,180" /><path class="dim" d="M525,220 L540,220" /><path class="dim" d="M525,260 L540,260" /><path class="dim" d="M525,300 L540,300" /><path class="dim" d="M525,340 L540,340" />
-                            <!-- Roof insulation hatching (between rafters and inner roof) -->
-                            <path class="dim" d="M120,103 L132,109" /><path class="dim" d="M180,88 L192,94" /><path class="dim" d="M240,73 L252,79" /><path class="dim" d="M360,79 L348,73" /><path class="dim" d="M420,94 L408,88" /><path class="dim" d="M480,109 L468,103" />
-                            <!-- Ridge ventilator -->
-                            <path d="M285,68 L315,68 L315,55 L285,55 Z" />
-                            <path class="accent" d="M290,55 L290,50" /><path class="accent" d="M300,55 L300,50" /><path class="accent" d="M310,55 L310,50" />
-                            <!-- Refrigeration unit on roof -->
-                            <path d="M420,110 L470,110 L470,90 L420,90 Z" />
-                            <path class="accent" d="M428,98 L462,98" />
-                            <path class="accent" d="M428,103 L462,103" />
-                            <!-- Roof purlins (parallel to slope) -->
-                            <path class="accent" d="M130,113 L250,83" />
-                            <path class="accent" d="M170,103 L290,73" />
-                            <path class="accent" d="M350,73 L470,103" />
-                            <path class="accent" d="M310,83 L430,113" />
-                            <!-- Side wall girts -->
-                            <path class="accent" d="M60,200 L540,200" />
-                            <path class="accent" d="M60,260 L540,260" />
-                            <path class="accent" d="M60,320 L540,320" />
-                            <!-- Cladding panel seams (vertical) -->
-                            <path class="dim" d="M100,140 L100,370" /><path class="dim" d="M140,140 L140,370" /><path class="dim" d="M180,140 L180,370" /><path class="dim" d="M220,140 L220,370" /><path class="dim" d="M260,140 L260,370" /><path class="dim" d="M340,140 L340,370" /><path class="dim" d="M380,140 L380,370" /><path class="dim" d="M420,140 L420,370" /><path class="dim" d="M460,140 L460,370" /><path class="dim" d="M500,140 L500,370" />
-                            <!-- Loading dock doors at base -->
-                            <path d="M340,320 L380,320 L380,370 L340,370 Z" />
-                            <path d="M390,320 L430,320 L430,370 L390,370 Z" />
-                            <path d="M440,320 L480,320 L480,370 L440,370 Z" />
-                            <!-- Dock door panel grooves -->
-                            <path class="accent" d="M345,335 L375,335" /><path class="accent" d="M345,350 L375,350" />
-                            <path class="accent" d="M395,335 L425,335" /><path class="accent" d="M395,350 L425,350" />
-                            <path class="accent" d="M445,335 L475,335" /><path class="accent" d="M445,350 L475,350" />
-                            <!-- Snowflake glyph (cold storage cue) top-right -->
-                            <path d="M45,50 L75,50" /><path d="M60,35 L60,65" /><path d="M50,40 L70,60" /><path d="M70,40 L50,60" />
-                            <path d="M45,50 L52,46" /><path d="M45,50 L52,54" /><path d="M75,50 L68,46" /><path d="M75,50 L68,54" />
-                            <path d="M60,35 L56,42" /><path d="M60,35 L64,42" /><path d="M60,65 L56,58" /><path d="M60,65 L64,58" />
-                            <!-- Top dimension line -->
-                            <path class="dim" d="M60,110 L540,110" />
-                            <path class="dim" d="M60,105 L60,115" /><path class="dim" d="M540,105 L540,115" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">Cold Storage</span>
-                        <h3>Global Distribution Center</h3>
-                        <p>500,000 sq ft insulated cold storage warehouse with rigid steel frame, cold-formed cladding, and dock-level detailing</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">Cold Storage</span>
-                                <h2>Global Distribution Center</h2>
-                                <div class="project-sub">Insulated cold storage warehouse</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Reno, NV</span></div>
-                            <div class="project-meta"><span class="meta-label">Building Size</span><span class="meta-value">500,000 sq ft &middot; 38 ft clear height</span></div>
-                            <div class="project-meta"><span class="meta-label">Steel Tonnage</span><span class="meta-value">~2,800 tons</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">Tekla Structures &middot; AutoCAD &middot; Revit (BIM)</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Rigid steel frame, cold-formed cladding, insulated panel layouts, and dock-level detailing.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>PEMB shop drawings</li><li>Insulated panel layouts</li><li>Dock door framing</li><li>BIM coordination model</li><li>Anchor bolt plans</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">22 weeks &middot; phased delivery</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">Vapor-barrier framing tolerances, cold-formed cladding-to-rigid-frame coordination, dock-level MEP clash detection.</span></div>
-                        </div>
-                        <div class="project-details-foot">P.03 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="tekla-tile" aria-label="Isometric structural steel frame model">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Back frame -->
-                            <path d="M110,314 L110,44" /><path d="M240,314 L240,44" /><path d="M370,314 L370,44" /><path d="M500,314 L500,44" />
-                            <path d="M110,44 L500,44" /><path d="M110,134 L500,134" /><path d="M110,224 L500,224" /><path d="M110,314 L500,314" />
-                            <!-- Mid frame -->
-                            <path d="M85,332 L85,62" /><path d="M215,332 L215,62" /><path d="M345,332 L345,62" /><path d="M475,332 L475,62" />
-                            <path d="M85,62 L475,62" /><path d="M85,152 L475,152" /><path d="M85,242 L475,242" /><path d="M85,332 L475,332" />
-                            <!-- Front frame -->
-                            <path d="M60,350 L60,80" /><path d="M190,350 L190,80" /><path d="M320,350 L320,80" /><path d="M450,350 L450,80" />
-                            <path d="M60,80 L450,80" /><path d="M60,170 L450,170" /><path d="M60,260 L450,260" /><path d="M60,350 L450,350" />
-                            <!-- Iso connectors front->mid->back at column tops & bases -->
-                            <path d="M60,350 L110,314" /><path d="M190,350 L240,314" /><path d="M320,350 L370,314" /><path d="M450,350 L500,314" />
-                            <path d="M60,80 L110,44" /><path d="M190,80 L240,44" /><path d="M320,80 L370,44" /><path d="M450,80 L500,44" />
-                            <!-- Iso connectors at intermediate levels -->
-                            <path class="accent" d="M60,170 L110,134" /><path class="accent" d="M190,170 L240,134" /><path class="accent" d="M320,170 L370,134" /><path class="accent" d="M450,170 L500,134" />
-                            <path class="accent" d="M60,260 L110,224" /><path class="accent" d="M190,260 L240,224" /><path class="accent" d="M320,260 L370,224" /><path class="accent" d="M450,260 L500,224" />
-                            <!-- X-bracing in front bay -->
-                            <path class="dim" d="M60,350 L190,260" /><path class="dim" d="M190,350 L60,260" />
-                            <!-- X-bracing in back bay -->
-                            <path class="dim" d="M370,314 L500,224" /><path class="dim" d="M500,314 L370,224" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">Structural Steel</span>
-                        <h3>Metro Business Park</h3>
-                        <p>4-story moment-frame steel structure with full connection design and erection sequencing</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">Structural Steel</span>
-                                <h2>Metro Business Park</h2>
-                                <div class="project-sub">4-story moment-frame office</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Chicago, IL</span></div>
-                            <div class="project-meta"><span class="meta-label">Building Size</span><span class="meta-value">180,000 sq ft &middot; 4 floors</span></div>
-                            <div class="project-meta"><span class="meta-label">Steel Tonnage</span><span class="meta-value">~1,600 tons</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">Tekla Structures &middot; SDS2</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Moment connection design, erection sequencing, and structural steel shop drawings.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>Moment connection details</li><li>Erection sequence drawings</li><li>Shop drawings</li><li>Anchor bolt plans</li><li>Field weld map</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">18 weeks</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">Seismic moment connections, sequencing on a live site, and tight column tolerances at the facade interface.</span></div>
-                        </div>
-                        <div class="project-details-foot">P.04 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-                <div class="project-card reveal reveal-delay-2">
-                    <div class="tekla-tile" aria-label="Hybrid composite floor and column section">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Concrete slab -->
-                            <path d="M60,80 L540,80 L540,140 L60,140 Z" />
-                            <!-- Slab hatching (concrete cue) -->
-                            <path class="dim" d="M80,80 L60,100" /><path class="dim" d="M120,80 L60,140" /><path class="dim" d="M180,80 L120,140" /><path class="dim" d="M240,80 L180,140" /><path class="dim" d="M300,80 L240,140" /><path class="dim" d="M360,80 L300,140" /><path class="dim" d="M420,80 L360,140" /><path class="dim" d="M480,80 L420,140" /><path class="dim" d="M540,80 L480,140" /><path class="dim" d="M540,120 L520,140" />
-                            <!-- Top rebar -->
-                            <circle class="bolt" cx="100" cy="98" r="3" /><circle class="bolt" cx="180" cy="98" r="3" /><circle class="bolt" cx="260" cy="98" r="3" /><circle class="bolt" cx="340" cy="98" r="3" /><circle class="bolt" cx="420" cy="98" r="3" /><circle class="bolt" cx="500" cy="98" r="3" />
-                            <!-- Bottom rebar -->
-                            <circle class="bolt" cx="100" cy="125" r="3" /><circle class="bolt" cx="180" cy="125" r="3" /><circle class="bolt" cx="260" cy="125" r="3" /><circle class="bolt" cx="340" cy="125" r="3" /><circle class="bolt" cx="420" cy="125" r="3" /><circle class="bolt" cx="500" cy="125" r="3" />
-                            <!-- Corrugated steel deck under slab -->
-                            <path d="M60,140 L90,158 L120,140 L150,158 L180,140 L210,158 L240,140 L270,158 L300,140 L330,158 L360,140 L390,158 L420,140 L450,158 L480,140 L510,158 L540,140" />
-                            <!-- Composite steel beam (W-shape side elevation) -->
-                            <path d="M140,168 L460,168 L460,178 L140,178 Z" />
-                            <path d="M295,178 L295,232" /><path d="M305,178 L305,232" />
-                            <path d="M140,232 L460,232 L460,242 L140,242 Z" />
-                            <!-- Shear studs (between beam top and deck) -->
-                            <path d="M180,160 L180,168" /><path d="M180,160 L188,160" />
-                            <path d="M240,160 L240,168" /><path d="M240,160 L248,160" />
-                            <path d="M300,160 L300,168" /><path d="M300,160 L308,160" />
-                            <path d="M360,160 L360,168" /><path d="M360,160 L368,160" />
-                            <path d="M420,160 L420,168" /><path d="M420,160 L428,160" />
-                            <!-- Composite column below (concrete encasement + steel core) -->
-                            <path d="M250,260 L350,260 L350,380 L250,380 Z" />
-                            <path class="accent" d="M275,260 L325,260 L325,380 L275,380 Z" />
-                            <path class="accent" d="M295,260 L295,380" /><path class="accent" d="M305,260 L305,380" />
-                            <!-- Column corner rebar -->
-                            <circle class="bolt" cx="260" cy="270" r="2.5" /><circle class="bolt" cx="340" cy="270" r="2.5" />
-                            <circle class="bolt" cx="260" cy="370" r="2.5" /><circle class="bolt" cx="340" cy="370" r="2.5" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">Hybrid</span>
-                        <h3>Skyline Composite Tower</h3>
-                        <p>Composite steel-concrete floor system with embedded W-shape and encased column detailing</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">Hybrid</span>
-                                <h2>Skyline Composite Tower</h2>
-                                <div class="project-sub">22-story composite office tower</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Austin, TX</span></div>
-                            <div class="project-meta"><span class="meta-label">Building Size</span><span class="meta-value">540,000 sq ft &middot; 22 floors</span></div>
-                            <div class="project-meta"><span class="meta-label">Steel Tonnage</span><span class="meta-value">~3,400 tons &middot; composite slabs</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">Tekla Structures &middot; Revit &middot; AutoCAD</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Composite floor framing, encased column detailing, and steel-concrete interface coordination.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>Composite floor shop drawings</li><li>Encased column details</li><li>Shear stud layouts</li><li>BIM coordination (LOD 400)</li><li>Embed plans</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">36 weeks &middot; phased erection</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">Composite floor coordination with PT slabs, encased-column reinforcement clashes, and LOD 400 BIM coordination across 12 trades.</span></div>
-                        </div>
-                        <div class="project-details-foot">P.05 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-                <div class="project-card reveal reveal-delay-3">
-                    <div class="tekla-tile" aria-label="Industrial stair and platform elevation drawing">
-                        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
-                            <!-- Top landing platform -->
-                            <path d="M380,120 L560,120" /><path d="M380,128 L560,128" />
-                            <path d="M380,120 L380,160" /><path d="M560,120 L560,160" />
-                            <!-- Top guardrail -->
-                            <path class="accent" d="M380,70 L560,70" />
-                            <path class="accent" d="M380,120 L380,70" /><path class="accent" d="M560,120 L560,70" />
-                            <path class="accent" d="M420,120 L420,70" /><path class="accent" d="M460,120 L460,70" /><path class="accent" d="M500,120 L500,70" /><path class="accent" d="M540,120 L540,70" />
-                            <!-- Stair stringer (double line) -->
-                            <path d="M150,360 L380,120" /><path d="M158,366 L388,128" />
-                            <!-- Step zigzag (treads + risers) -->
-                            <path d="M155,360 L175,360 L175,340 L195,340 L195,320 L215,320 L215,300 L235,300 L235,280 L255,280 L255,260 L275,260 L275,240 L295,240 L295,220 L315,220 L315,200 L335,200 L335,180 L355,180 L355,160 L375,160 L375,140" />
-                            <!-- Stair handrail (parallel above stringer) -->
-                            <path class="accent" d="M130,335 L370,90" />
-                            <!-- Balusters along stair handrail -->
-                            <path class="accent" d="M160,353 L160,328" /><path class="accent" d="M200,313 L200,288" /><path class="accent" d="M240,273 L240,248" /><path class="accent" d="M280,233 L280,208" /><path class="accent" d="M320,193 L320,168" /><path class="accent" d="M360,153 L360,128" />
-                            <!-- Bottom landing -->
-                            <path d="M50,360 L150,360" /><path d="M50,368 L150,368" />
-                            <!-- Floor / ground hatching -->
-                            <path class="dim" d="M50,380 L580,380" />
-                            <path class="dim" d="M70,380 L60,395" /><path class="dim" d="M110,380 L100,395" /><path class="dim" d="M150,380 L140,395" /><path class="dim" d="M190,380 L180,395" /><path class="dim" d="M230,380 L220,395" /><path class="dim" d="M270,380 L260,395" /><path class="dim" d="M310,380 L300,395" /><path class="dim" d="M350,380 L340,395" /><path class="dim" d="M390,380 L380,395" /><path class="dim" d="M430,380 L420,395" /><path class="dim" d="M470,380 L460,395" /><path class="dim" d="M510,380 L500,395" /><path class="dim" d="M550,380 L540,395" />
-                            <!-- Vertical ladder on right side -->
-                            <path d="M520,200 L520,360" /><path d="M540,200 L540,360" />
-                            <path d="M520,230 L540,230" /><path d="M520,260 L540,260" /><path d="M520,290 L540,290" /><path d="M520,320 L540,320" /><path d="M520,350 L540,350" />
-                        </svg>
-                    </div>
-                    <div class="project-shine"></div>
-                    <div class="project-overlay">
-                        <span class="project-tag">Stairs & Ladders</span>
-                        <h3>Industrial Stair & Platform Package</h3>
-                        <p>Code-compliant stairs, ladders, handrails, and platforms — fabrication-ready miscellaneous steel</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-head">
-                            <div class="project-details-title">
-                                <span class="project-tag">Stairs &amp; Ladders</span>
-                                <h2>Industrial Stair &amp; Platform Package</h2>
-                                <div class="project-sub">Petrochemical plant retrofit</div>
-                            </div>
-                            <button class="project-close" aria-label="Close project details">&times;</button>
-                        </div>
-                        <div class="project-details-grid">
-                            <div class="project-meta"><span class="meta-label">Location</span><span class="meta-value">Buffalo, NY</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope Size</span><span class="meta-value">18 stair runs &middot; 4 caged ladders &middot; 6 platforms &middot; ~3,200 lf handrail</span></div>
-                            <div class="project-meta"><span class="meta-label">Steel Tonnage</span><span class="meta-value">~120 tons miscellaneous steel</span></div>
-                            <div class="project-meta"><span class="meta-label">Software</span><span class="meta-value">Tekla Structures &middot; AutoCAD</span></div>
-                            <div class="project-meta"><span class="meta-label">Scope of Work</span><span class="meta-value">Stairs, ladders, handrails, platforms, and fall-arrest anchor coordination.</span></div>
-                            <div class="project-meta"><span class="meta-label">Deliverables</span><span class="meta-value"><ul><li>Stair &amp; platform shop drawings</li><li>Handrail detailing</li><li>Caged ladder details</li><li>Fall-arrest anchor coordination</li><li>Site-install packages</li></ul></span></div>
-                            <div class="project-meta"><span class="meta-label">Timeline</span><span class="meta-value">10 weeks</span></div>
-                            <div class="project-meta"><span class="meta-label">Challenges Solved</span><span class="meta-value">OSHA 1910 compliance audit, retrofit clearance constraints around existing piping, and custom landing splices.</span></div>
-                        </div>
-                        <div class="project-details-foot">P.06 &middot; Project Spotlight</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
@@ -1203,19 +894,15 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <div><h4>Headquarters</h4><span>DwellFrames Tower, 42 Engineering Drive<br>Business District, NY 10001</span></div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <div><h4>Phone</h4><span>+1 (555) 234-5678</span></div>
+                            <div><h4>Headquarters</h4><span>SR NO 50/1 Plot No 5A Matruchhya Srushti Dream Land Society<br>Undri, Pune, Maharashtra 411060</span></div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <div><h4>Email</h4><span>projects@dwellframes.com</span></div>
+                            <div><h4>Email</h4><a href="mailto:dwellframes21@gmail.com">dwellframes21@gmail.com</a></div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-clock"></i>
-                            <div><h4>Working Hours</h4><span>Mon - Sat: 8:00 AM - 6:00 PM IST</span></div>
+                            <div><h4>Working Hours</h4><span>Mon - Fri: 10:00 AM - 7:00 PM<br>Sat &amp; Sun: Closed</span></div>
                         </div>
                     </div>
                 </div>
@@ -1263,7 +950,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div style="margin-bottom:1.25rem;">
-                        <img src="Logo/dwellframes-logo.png" alt="DwellFrames Steel Detailing" class="footer-logo-img">
+                        <img src="assets/dwellframes-logo.png" alt="DwellFrames Steel Detailing" class="footer-logo-img">
                     </div>
                     <p>DwellFrames is a specialist steel detailing firm delivering fabrication-ready Tekla models, shop drawings, and erection drawings for fabricators, contractors, and PEMB companies.</p>
                     <div class="footer-social">
@@ -1296,9 +983,9 @@
                 <div class="footer-column">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Terms of Service</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Cookie Policy</a></li>
+                        <li><a href="assets/privacy-policy.pdf" target="_blank" rel="noopener"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Privacy Policy</a></li>
+                        <li><a href="assets/terms-of-service.pdf" target="_blank" rel="noopener"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Terms of Service</a></li>
+                        <li><a href="assets/cookie-policy.pdf" target="_blank" rel="noopener"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Cookie Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -1502,7 +1189,7 @@
             ];
             const body = bodyLines.join('\r\n');
 
-            const mailto = 'mailto:info@dwellframes.com'
+            const mailto = 'mailto:dwellframes21@gmail.com'
                 + '?from=' + encodeURIComponent(email)
                 + '&subject=' + encodeURIComponent(subject)
                 + '&body=' + encodeURIComponent(body);
@@ -1530,38 +1217,6 @@
             });
         });
 
-        // PROJECT CARD EXPAND
-        (function () {
-            const grid = document.querySelector('.projects-grid');
-            if (!grid) return;
-            const cards = grid.querySelectorAll('.project-card');
-
-            function collapse() {
-                grid.classList.remove('has-expanded');
-                cards.forEach(c => c.classList.remove('expanded'));
-            }
-
-            function expand(card) {
-                cards.forEach(c => c.classList.remove('expanded'));
-                card.classList.add('expanded');
-                grid.classList.add('has-expanded');
-            }
-
-            cards.forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('.project-close')) {
-                        collapse();
-                        return;
-                    }
-                    if (card.classList.contains('expanded')) return;
-                    expand(card);
-                });
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && grid.classList.contains('has-expanded')) collapse();
-            });
-        })();
     </script>
 </body>
 </html>
