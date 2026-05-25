@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://www.dwellframes.com/</loc>
+        <lastmod>2026-05-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/dwellframes-logo.png</image:loc>
+            <image:title>DwellFrames — Steel Detailing &amp; Tekla Modeling Services</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/apex-manufacturing.png</image:loc>
+            <image:title>Apex Manufacturing Plant Tekla model</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/logistics-hub.png</image:loc>
+            <image:title>Logistics Hub Roof System Tekla model</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/cold-storage.png</image:loc>
+            <image:title>Cold Storage Warehouse Tekla model</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/metro-business-park.png</image:loc>
+            <image:title>Metro Business Park Tekla model</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/skyline-composite.png</image:loc>
+            <image:title>Skyline Composite Tekla model</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.dwellframes.com/assets/structural-wireframe-model.png</image:loc>
+            <image:title>Structural steel wireframe Tekla model</image:title>
+        </image:image>
+    </url>
+</urlset>

@@ -1,0 +1,22 @@
+# robots.txt for DwellFrames
+# https://www.dwellframes.com/
+
+User-agent: *
+Allow: /
+Disallow: /assets/*.pdf$
+
+# Block AI crawlers (remove these lines if you want AI training inclusion)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Sitemap
+Sitemap: https://www.dwellframes.com/sitemap.xml
